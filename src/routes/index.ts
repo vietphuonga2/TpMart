@@ -2,7 +2,6 @@ import * as winston from 'winston';
 
 import userRouter from './user.routes';
 
-import provinceRouter from './province.routes';
 
 import { UsersController } from '../controllers';
 import { wrapHandlerWithJSONResponse } from '@commons/response';
@@ -22,7 +21,6 @@ export function initRoutes(app, router) {
     );
 
   router.use('/users', userRouter);
-  router.use('/province', provinceRouter);
 
   return router;
 }

@@ -24,7 +24,6 @@ import {
 import { handlePagingMiddleware, pagingMiddleware } from '@middleware/pagingMiddleware';
 import { IS_ACTIVE, AppError, apiCode, USER_STATUS, ROLE, GENDER, CONFIG, CATEGORY_STATUS } from '@commons/constant';
 import { ApplicationController } from './';
-import { category, atrribute, atrributeDetail } from './mock/category';
 import Joi from '../helpers/validationHelper';
 import { required } from 'joi';
 import { where } from 'sequelize/types';

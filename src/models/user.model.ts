@@ -150,29 +150,29 @@ module.exports = function (sequelize, DataTypes) {
     },
   );
 
-  User.associate = (db) => {
-    db.User.belongsTo(db.DFTypeUser, {
-      foreignKey: {
-        name: 'df_type_user_id',
-      },
-    });
-    db.User.belongsTo(db.Enterprise, {
-      foreignKey: { name: 'enterprise_id' },
-    });
-    db.User.belongsTo(db.DFProvince, {
-      foreignKey: {
-        name: 'province_id',
-      },
-    });
+  // User.associate = (db) => {
+  //   db.User.belongsTo(db.DFTypeUser, {
+  //     foreignKey: {
+  //       name: 'df_type_user_id',
+  //     },
+  //   });
+  //   db.User.belongsTo(db.Enterprise, {
+  //     foreignKey: { name: 'enterprise_id' },
+  //   });
+  //   db.User.belongsTo(db.DFProvince, {
+  //     foreignKey: {
+  //       name: 'province_id',
+  //     },
+  //   });
 
-    db.User.hasOne(db.Agent, {
-      foreignKey: { name: 'user_id' },
-    });
+  //   db.User.hasOne(db.Agent, {
+  //     foreignKey: { name: 'user_id' },
+  //   });
 
-    db.User.hasOne(db.Notification, {
-      foreignKey: { name: 'user_id' },
-    });
-  };
+  //   db.User.hasOne(db.Notification, {
+  //     foreignKey: { name: 'user_id' },
+  //   });
+  // };
 
   User.beforeSave((user, options) => {
     console.log({ user });

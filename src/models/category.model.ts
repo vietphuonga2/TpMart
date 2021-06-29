@@ -36,7 +36,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         defaultValue: CATEGORY_STATUS.ACTIVE,
       },
-
       create_by: DataTypes.INTEGER,
       update_by: DataTypes.INTEGER,
       delete_by: DataTypes.INTEGER,
@@ -83,12 +82,12 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   Category.associate = (db) => {
-    db.Category.hasMany(db.CategoryAttribute, {
-      foreignKey: { name: 'category_id' },
-    });
-    db.Category.hasMany(db.Wishlist, {
-      foreignKey: { name: 'category_id' },
-    });
+    // db.Category.hasMany(db.CategoryAttribute, {
+    //   foreignKey: { name: 'category_id' },
+    // });
+    // db.Category.hasMany(db.Wishlist, {
+    //   foreignKey: { name: 'category_id' },
+    // });
     db.Category.hasMany(db.Product, {
       foreignKey: {
         name: 'category_id',
@@ -98,14 +97,6 @@ module.exports = function (sequelize, DataTypes) {
       as: 'parent_category',
       foreignKey: 'parent_id',
     });
-    // db.User.belongsTo(db.Enterprise, {
-    //   foreignKey: { name: 'enterprise_id' },
-    // });
-    // db.User.belongsTo(db.DFProvince, {
-    //   foreignKey: {
-    //     name: 'province_id',
-    //   },
-    // });
   };
   return Category;
 };
