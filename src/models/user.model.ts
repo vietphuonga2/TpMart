@@ -13,8 +13,11 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      enterprise_id: { allowNull: true, type: DataTypes.INTEGER },
-      df_type_user_id: DataTypes.INTEGER,
+      agora_id:{
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      }, 
+      role: DataTypes.INTEGER,
       user_name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -96,18 +99,8 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-
-      expired_at: {
-        type: DataTypes.INTEGER(10),
-        allowNull: true,
-        // get() {
-        //   // return new Date(this.getDataValue("created_at") * 1000);
-        // },
-      },
-
       create_by: DataTypes.INTEGER,
       update_by: DataTypes.INTEGER,
-      delete_by: DataTypes.INTEGER,
       is_active: {
         allowNull: false,
         type: DataTypes.INTEGER,
@@ -130,10 +123,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE,
         allowNull: true,
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      delete_at: {
-        type: DataTypes.DATE,
-        allowNull: true,
       },
     },
     {

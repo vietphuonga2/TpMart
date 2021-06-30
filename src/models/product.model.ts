@@ -13,7 +13,6 @@ module.exports = function (sequelize, DataTypes) {
       },
       code: { allowNull: false, type: DataTypes.STRING },
       name: { type: DataTypes.STRING },
-      is_public: { type: DataTypes.INTEGER, defaultValue: 1 },
       description: { type: DataTypes.TEXT },
       category_id: { type: DataTypes.INTEGER },
       status: {
@@ -28,10 +27,10 @@ module.exports = function (sequelize, DataTypes) {
           },
         },
       },
-      price: { type: DataTypes.INTEGER },
+      viewed_count:DataTypes.INTEGER,
+      sold_count:DataTypes.INTEGER,
       create_by: DataTypes.INTEGER,
       update_by: DataTypes.INTEGER,
-      delete_by: DataTypes.INTEGER,
       create_at: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -42,10 +41,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE,
         allowNull: true,
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      delete_at: {
-        type: DataTypes.DATE,
-        allowNull: true,
       },
       is_active: {
         allowNull: false,

@@ -1,11 +1,11 @@
 import { createJWToken } from '@config/auth';
-import { IS_ACTIVE, CATEGORY_STATUS, GENDER, getFullUrl } from '@commons/constant';
+import { IS_ACTIVE, USER_STATUS, GENDER } from '@commons/constant';
 import * as bcrypt from 'bcryptjs';
 import { Sequelize } from 'sequelize';
 
 module.exports = function (sequelize, DataTypes) {
-  const Category = sequelize.define(
-    'Category',
+  const DFWard = sequelize.define(
+    'DFWard',
     {
       id: {
         allowNull: false,
@@ -17,27 +17,16 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      parent_id: {
-        allowNull: true,
-        type: DataTypes.INTEGER,
-      },
-      display_order: {
-        allowNull: true,
-        type: DataTypes.INTEGER,
-      },
-      icon_url: {
-        type: DataTypes.STRING,
-        get() {
-          return getFullUrl(this.getDataValue('icon_url'));
-        },
-      },
-      status: {
+      value: {
         allowNull: false,
-        type: DataTypes.INTEGER,
-        defaultValue: CATEGORY_STATUS.ACTIVE,
+        unique: true,
+        type: DataTypes.STRING,
       },
-      create_by: DataTypes.INTEGER,
-      update_by: DataTypes.INTEGER,
+      prefix: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
+      district_id: DataTypes.INTEGER,
       is_active: {
         allowNull: false,
         type: DataTypes.INTEGER,
@@ -53,13 +42,17 @@ module.exports = function (sequelize, DataTypes) {
       create_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        // defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        // defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
       },
       update_at: {
         type: DataTypes.DATE,
         allowNull: true,
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      delete_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
@@ -70,28 +63,24 @@ module.exports = function (sequelize, DataTypes) {
       paranoid: false,
       timestamps: false,
       freezeTableName: true,
-      tableName: 'category',
+      tableName: 'df_ward',
       version: true,
       hooks: {},
     },
   );
 
-  Category.associate = (db) => {
-    // db.Category.hasMany(db.CategoryAttribute, {
-    //   foreignKey: { name: 'category_id' },
-    // });
-    // db.Category.hasMany(db.Wishlist, {
-    //   foreignKey: { name: 'category_id' },
-    // });
-    db.Category.hasMany(db.Product, {
+  DFWard.associate = (db) => {
+    db.DFWard.belongsTo(db.DFDistrict, {
       foreignKey: {
-        name: 'category_id',
+        name: 'district_id',
       },
     });
-    db.Category.belongsTo(db.Category, {
-      as: 'parent_category',
-      foreignKey: 'parent_id',
+    db.DFWard.hasMany(db.Customer, {
+      foreignKey: {
+        name: 'df_ward_id',
+      },
     });
   };
-  return Category;
+
+  return DFWard;
 };
